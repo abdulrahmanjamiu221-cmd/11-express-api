@@ -1,0 +1,74 @@
+[
+  {
+    "id": "a1b2c3d4-e5f6-4789-8a01-234567890001",
+    "name": "Everyday Cotton T-Shirt",
+    "sku": "APP-TSH-001",
+    "category": "Apparel",
+    "price": 24.99,
+    "stock": 120,
+    "createdAt": "2025-01-12T10:30:00.000Z"
+  },
+  {
+    "id": "a1b2c3d4-e5f6-4789-8a01-234567890002",
+    "name": "Canvas Weekend Backpack",
+    "sku": "BAG-BPK-014",
+    "category": "Accessories",
+    "price": 58.5,
+    "stock": 42,
+    "createdAt": "2025-02-03T14:15:00.000Z"
+  },
+  {
+    "id": "a1b2c3d4-e5f6-4789-8a01-234567890003",
+    "name": "Ceramic Pour-Over Coffee Set",
+    "sku": "HOM-COF-008",
+    "category": "Home",
+    "price": 36,
+    "stock": 27,
+    "createdAt": "2025-02-21T09:00:00.000Z"
+  },
+  {
+    "id": "a1b2c3d4-e5f6-4789-8a01-234567890004",
+    "name": "Wireless Bluetooth Headphones",
+    "sku": "ELC-AUD-032",
+    "category": "Electronics",
+    "price": 89.95,
+    "stock": 18,
+    "createdAt": "2025-03-08T16:45:00.000Z"
+  },
+  {
+    "id": "a1b2c3d4-e5f6-4789-8a01-234567890005",
+    "name": "Stainless Steel Water Bottle",
+    "sku": "OUT-BTL-011",
+    "category": "Outdoors",
+    "price": 22,
+    "stock": 76,
+    "createdAt": "2025-03-19T11:20:00.000Z"
+  },
+  {
+    "id": "a1b2c3d4-e5f6-4789-8a01-234567890006",
+    "name": "Hardcover Daily Planner",
+    "sku": "STA-PLN-005",
+    "category": "Stationery",
+    "price": 18.75,
+    "stock": 64,
+    "createdAt": "2025-04-02T08:10:00.000Z"
+  },
+  {
+    "id": "a1b2c3d4-e5f6-4789-8a01-234567890007",
+    "name": "Leather Card Holder",
+    "sku": "ACC-WAL-019",
+    "category": "Accessories",
+    "price": 32.5,
+    "stock": 31,
+    "createdAt": "2025-04-17T13:35:00.000Z"
+  },
+  {
+    "id": "a1b2c3d4-e5f6-4789-8a01-234567890008",
+    "name": "Compact LED Desk Lamp",
+    "sku": "HOM-LMP-021",
+    "category": "Home",
+    "price": 44.99,
+    "stock": 23,
+    "createdAt": "2025-05-06T15:05:00.000Z"
+  }
+]
