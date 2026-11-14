@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f6f2">
+    <title>Inventory | Morrow Supply</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Morrow Supply inventory home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <path d="M7 25V9.5L16 15l9-5.5V25M7 9.5 16 4l9 5.5M16 15v11" />
+          </svg>
+        </span>
+        <span class="brand-name">morrow<span>supply</span></span>
+      </a>
+      <div class="api-status">
+        <span class="status-dot" id="api-status-dot"></span>
+        <span id="api-status-label">Connecting to API</span>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <section class="page-heading" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">CATALOG MANAGEMENT</p>
+          <h1 id="page-title">Product inventory</h1>
+          <p class="page-description">A clear view of what you have, and what needs attention.</p>
+        </div>
+        <button class="button button-primary" id="open-product-dialog" type="button">
+          <span class="button-plus" aria-hidden="true">+</span>
+          Add product
+        </button>
+      </section>
+
+      <section class="inventory-panel" aria-label="Product inventory">
+        <div class="panel-toolbar">
+          <div class="toolbar-heading">
+            <h2>All products</h2>
+            <span class="result-count" id="result-count" aria-live="polite"></span>
+          </div>
+          <div class="filters">
+            <label class="search-control" for="search-input">
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <circle cx="8.8" cy="8.8" r="5.8"></circle>
+                <path d="m13.2 13.2 4 4"></path>
+              </svg>
+              <span class="visually-hidden">Search products</span>
+              <input id="search-input" type="search" placeholder="Search products..." autocomplete="off">
+              <kbd>⌘ K</kbd>
+            </label>
+            <label class="select-control">
+              <span class="visually-hidden">Filter by category</span>
+              <select id="category-filter">
+                <option value="">All categories</option>
+                <option value="Accessories">Accessories</option>
+                <option value="Apparel">Apparel</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Home">Home</option>
+                <option value="Outdoors">Outdoors</option>
+                <option value="Stationery">Stationery</option>
+              </select>
+            </label>
+            <label class="select-control sort-control">
+              <span class="visually-hidden">Sort by price</span>
+              <select id="sort-filter">
+                <option value="">Default order</option>
+                <option value="price">Price: low to high</option>
+                <option value="-price">Price: high to low</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Category</th>
+                <th scope="col">Price</th>
+                <th scope="col">Available stock</th>
+                <th scope="col"><span class="visually-hidden">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody id="product-rows">
+              <tr>
+                <td class="table-message" colspan="5">
+                  <span class="spinner" aria-hidden="true"></span>
+                  Loading products...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel-footer">
+          <span id="footer-summary">Inventory is up to date</span>
+          <span class="footer-note"><span class="footer-dot"></span>Changes save automatically</span>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="product-dialog" id="product-dialog" aria-labelledby="dialog-title">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow">NEW LISTING</p>
+          <h2 id="dialog-title">Add a product</h2>
+          <p class="dialog-description">Add the details for this item to your catalog.</p>
+        </div>
+        <button class="icon-button dialog-close" id="close-product-dialog" type="button" aria-label="Close dialog">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form id="product-form" novalidate>
+        <div class="form-error" id="form-error" role="alert" hidden></div>
+        <div class="form-grid">
+          <label class="form-field field-wide" for="product-name">
+            <span>Product name</span>
+            <input id="product-name" name="name" type="text" minlength="2" maxlength="100" placeholder="e.g. Everyday tote bag">
+            <small class="field-error" data-error-for="name"></small>
+          </label>
+          <label class="form-field" for="product-sku">
+            <span>SKU</span>
+            <input id="product-sku" name="sku" type="text" placeholder="e.g. BAG-0042" autocomplete="off">
+            <small class="field-hint">3 uppercase letters, a hyphen, and 4 digits</small>
+            <small class="field-error" data-error-for="sku"></small>
+          </label>
+          <label class="form-field" for="product-category">
+            <span>Category</span>
+            <select id="product-category" name="category">
+              <option value="">Select category</option>
+              <option value="Accessories">Accessories</option>
+              <option value="Apparel">Apparel</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Home">Home</option>
+              <option value="Outdoors">Outdoors</option>
+              <option value="Stationery">Stationery</option>
+            </select>
+            <small class="field-error" data-error-for="category"></small>
+          </label>
+          <label class="form-field" for="product-price">
+            <span>Price</span>
+            <span class="input-with-prefix">
+              <span aria-hidden="true">$</span>
+              <input id="product-price" name="price" type="number" min="0.01" step="0.01" placeholder="0.00">
+            </span>
+            <small class="field-error" data-error-for="price"></small>
+          </label>
+          <label class="form-field" for="product-stock">
+            <span>Initial stock</span>
+            <input id="product-stock" name="stock" type="number" min="0" step="1" placeholder="0">
+            <small class="field-error" data-error-for="stock"></small>
+          </label>
+        </div>
+        <div class="dialog-actions">
+          <button class="button button-secondary" id="cancel-product-dialog" type="button">Cancel</button>
+          <button class="button button-primary" id="submit-product" type="submit">
+            <span class="submit-label">Create product</span>
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

@@ -70,5 +70,14 @@
     "price": 44.99,
     "stock": 23,
     "createdAt": "2025-05-06T15:05:00.000Z"
+  },
+  {
+    "id": "7f561890-4a52-4199-8c88-c1655439671f",
+    "name": "jk;rare",
+    "sku": "AAA-3452",
+    "category": "Apparel",
+    "price": 7897656,
+    "stock": 65,
+    "createdAt": "2026-11-14T17:01:37.153Z"
   }
 ]
