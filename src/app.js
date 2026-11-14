@@ -1,5 +1,6 @@
 import express from 'express';
 import { fileURLToPath } from 'node:url';
+import HttpError from './errors/HttpError.js';
 import productsRouter from './routes/products.routes.js';
 
 const app = express();
@@ -26,8 +27,8 @@ app.get('/api/health', (req, res) => {
 
 app.use('/api/products', productsRouter);
 
-app.use((req, res) => {
-  res.status(404).json({ error: { message: 'Route not found' } });
+app.use((req, res, next) => {
+  next(new HttpError(404, 'Route not found'));
 });
 
 app.use((err, req, res, next) => {
@@ -38,9 +39,19 @@ app.use((err, req, res, next) => {
   const status = Number.isInteger(err.status) && err.status >= 400 && err.status < 600
     ? err.status
     : 500;
-  const message = status === 500 ? 'Internal server error' : err.message;
+  const isProduction = process.env.NODE_ENV === 'production';
+  const message = status === 500 && isProduction ? 'Internal server error' : err.message;
+  const error = { message };
 
-  res.status(status).json({ error: { message } });
+  if (err.fields) {
+    error.fields = err.fields;
+  }
+
+  if (status >= 500 && !isProduction) {
+    console.error(err.stack);
+  }
+
+  res.status(status).json({ error });
 });
 
 export default app;

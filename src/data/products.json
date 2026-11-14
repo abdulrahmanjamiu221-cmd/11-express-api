@@ -2,7 +2,7 @@
   {
     "id": "a1b2c3d4-e5f6-4789-8a01-234567890001",
     "name": "Everyday Cotton T-Shirt",
-    "sku": "APP-TSH-001",
+    "sku": "APP-0001",
     "category": "Apparel",
     "price": 24.99,
     "stock": 120,
@@ -11,7 +11,7 @@
   {
     "id": "a1b2c3d4-e5f6-4789-8a01-234567890002",
     "name": "Canvas Weekend Backpack",
-    "sku": "BAG-BPK-014",
+    "sku": "BAG-0002",
     "category": "Accessories",
     "price": 58.5,
     "stock": 42,
@@ -20,7 +20,7 @@
   {
     "id": "a1b2c3d4-e5f6-4789-8a01-234567890003",
     "name": "Ceramic Pour-Over Coffee Set",
-    "sku": "HOM-COF-008",
+    "sku": "HOM-0003",
     "category": "Home",
     "price": 36,
     "stock": 27,
@@ -29,7 +29,7 @@
   {
     "id": "a1b2c3d4-e5f6-4789-8a01-234567890004",
     "name": "Wireless Bluetooth Headphones",
-    "sku": "ELC-AUD-032",
+    "sku": "ELC-0004",
     "category": "Electronics",
     "price": 89.95,
     "stock": 18,
@@ -38,7 +38,7 @@
   {
     "id": "a1b2c3d4-e5f6-4789-8a01-234567890005",
     "name": "Stainless Steel Water Bottle",
-    "sku": "OUT-BTL-011",
+    "sku": "OUT-0005",
     "category": "Outdoors",
     "price": 22,
     "stock": 76,
@@ -47,7 +47,7 @@
   {
     "id": "a1b2c3d4-e5f6-4789-8a01-234567890006",
     "name": "Hardcover Daily Planner",
-    "sku": "STA-PLN-005",
+    "sku": "STA-0006",
     "category": "Stationery",
     "price": 18.75,
     "stock": 64,
@@ -56,7 +56,7 @@
   {
     "id": "a1b2c3d4-e5f6-4789-8a01-234567890007",
     "name": "Leather Card Holder",
-    "sku": "ACC-WAL-019",
+    "sku": "ACC-0007",
     "category": "Accessories",
     "price": 32.5,
     "stock": 31,
@@ -65,7 +65,7 @@
   {
     "id": "a1b2c3d4-e5f6-4789-8a01-234567890008",
     "name": "Compact LED Desk Lamp",
-    "sku": "HOM-LMP-021",
+    "sku": "HOM-0008",
     "category": "Home",
     "price": 44.99,
     "stock": 23,
