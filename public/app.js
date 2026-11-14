@@ -28,6 +28,7 @@ const elements = {
 const state = {
   products: [],
   loading: true,
+  error: null,
   loadSequence: 0,
   searchTimer: null,
   toastTimer: null,
@@ -58,7 +59,7 @@ function makeElement(tag, className, text) {
   return element;
 }
 
-function makeTableMessage(message, loading = false) {
+function makeTableMessage(message, loading = false, retry = false) {
   const row = document.createElement('tr');
   const cell = makeElement('td', 'table-message');
   cell.colSpan = 5;
@@ -69,6 +70,14 @@ function makeTableMessage(message, loading = false) {
     cell.append(makeElement('span', 'empty-icon', '—'));
   }
   cell.append(document.createTextNode(message));
+
+  if (retry) {
+    const retryButton = makeElement('button', 'retry-button', 'Try again');
+    retryButton.type = 'button';
+    retryButton.dataset.action = 'retry';
+    cell.append(document.createTextNode(' '), retryButton);
+  }
+
   row.append(cell);
   return row;
 }
@@ -150,6 +159,12 @@ function render() {
     return;
   }
 
+  if (state.error) {
+    elements.rows.replaceChildren(makeTableMessage('Could not load products.', false, true));
+    elements.footerSummary.textContent = 'Check your connection and try again';
+    return;
+  }
+
   if (state.products.length === 0) {
     elements.rows.replaceChildren(makeTableMessage('No products match your filters.'));
     elements.footerSummary.textContent = 'Try a different search or category';
@@ -169,6 +184,7 @@ async function loadProducts() {
   };
 
   state.loading = true;
+  state.error = null;
   render();
 
   try {
@@ -182,6 +198,7 @@ async function loadProducts() {
       return;
     }
     state.products = [];
+    state.error = error.message || 'Could not load products.';
     showToast(error.message || 'Could not load products.', 'error');
   } finally {
     if (sequence === state.loadSequence) {
@@ -331,6 +348,8 @@ elements.rows.addEventListener('click', (event) => {
   const { action, productId } = button.dataset;
   if (action === 'delete') {
     removeProduct(productId);
+  } else if (action === 'retry') {
+    loadProducts();
   } else {
     changeStock(productId, action === 'increase' ? 1 : -1, button);
   }
