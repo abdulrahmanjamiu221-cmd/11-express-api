@@ -1,0 +1,114 @@
+@baseUrl = http://localhost:3000
+
+### Health check
+# @name health
+GET {{baseUrl}}/api/health
+
+### List all products
+# @name listProducts
+GET {{baseUrl}}/api/products
+
+### Filter by category
+# @name filterProducts
+GET {{baseUrl}}/api/products?category=Home
+
+### Search products
+# @name searchProducts
+GET {{baseUrl}}/api/products?q=backpack
+
+### Sort by price (ascending)
+# @name sortPriceAscending
+GET {{baseUrl}}/api/products?sort=price
+
+### Sort by price (descending)
+# @name sortPriceDescending
+GET {{baseUrl}}/api/products?sort=-price
+
+### Create a valid product
+# @name create
+POST {{baseUrl}}/api/products
+Content-Type: application/json
+
+{
+  "name": "REST Client Test Product",
+  "sku": "RCP-9001",
+  "category": "Stationery",
+  "price": 14.99,
+  "stock": 25
+}
+
+### Get the product created above
+# @name getCreatedProduct
+GET {{baseUrl}}/api/products/{{create.response.body.data.id}}
+
+### Create with invalid fields (422)
+# @name invalidCreate
+POST {{baseUrl}}/api/products
+Content-Type: application/json
+
+{
+  "name": "x",
+  "sku": "invalid",
+  "category": "Not a category",
+  "price": 0,
+  "stock": -1
+}
+
+### Create with an SKU already used by the valid create request (422)
+# @name duplicateSku
+POST {{baseUrl}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Duplicate SKU Product",
+  "sku": "{{create.response.body.data.sku}}",
+  "category": "Stationery",
+  "price": 19.99,
+  "stock": 5
+}
+
+### Replace the created product (PUT)
+# @name updateProduct
+PUT {{baseUrl}}/api/products/{{create.response.body.data.id}}
+Content-Type: application/json
+
+{
+  "name": "Updated REST Client Product",
+  "sku": "RCP-9002",
+  "category": "Stationery",
+  "price": 16.5,
+  "stock": 20
+}
+
+### Partially update the created product (PATCH)
+# @name patchProduct
+PATCH {{baseUrl}}/api/products/{{create.response.body.data.id}}
+Content-Type: application/json
+
+{
+  "stock": 18
+}
+
+### Delete the created product
+# @name deleteProduct
+DELETE {{baseUrl}}/api/products/{{create.response.body.data.id}}
+
+### Get the deleted product (404)
+# @name getDeletedProduct
+GET {{baseUrl}}/api/products/{{create.response.body.data.id}}
+
+### Get a product that does not exist (404)
+# @name getMissingProduct
+GET {{baseUrl}}/api/products/does-not-exist
+
+### Request an unknown route (404)
+# @name unknownRoute
+GET {{baseUrl}}/api/does-not-exist
+
+### Send malformed JSON (400)
+# @name malformedJson
+POST {{baseUrl}}/api/products
+Content-Type: application/json
+
+{
+  "name":
